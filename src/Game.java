@@ -2,12 +2,14 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.image.BufferStrategy;
 import java.awt.Font;
-import java.awt.image.BufferedImage;
+
 
 public class Game implements Runnable {
     private Display display;
     public int width, height;
     public String title;
+    public static int i = 0;
+    public static Question q = Question.readQuestion().get(i);
 
     private boolean running = false;
     private Thread thread;
@@ -15,7 +17,8 @@ public class Game implements Runnable {
     private BufferStrategy bs;
     private Graphics g;
     //private BufferedImage endImage;
-    private String prompt;
+
+
 
     public Game(String title, int width, int height) {
         this.width = width;
@@ -25,6 +28,7 @@ public class Game implements Runnable {
 
     private void init() {
         display = new Display(title, width, height);
+        int i = 0;
 
     }
 
@@ -39,12 +43,9 @@ public class Game implements Runnable {
 
         g.clearRect(0, 0, width, height);
 
-        int i = 0;
-        Question q = Question.readQuestion().get(i);
-        prompt = q.getShuffled();
 
 
-        if (prompt.length() == 4) {
+        if (q.getShuffled().length() == 4) {
             g.setColor(Color.ORANGE);
             g.fillRect(300, 150, 150, 150);
             g.setColor(Color.ORANGE);
@@ -56,18 +57,18 @@ public class Game implements Runnable {
 
             g.setColor(Color.BLACK);
             g.setFont(new Font("Cambria", Font.BOLD, 100));
-            String firstLetter = prompt.substring(0,1);
+            String firstLetter = q.getShuffled().substring(0,1);
             g.drawString(firstLetter, 320, 250);
 
-            String secondLetter = prompt.substring(1,2);
+            String secondLetter = q.getShuffled().substring(1,2);
             g.setFont(new Font("Cambria", Font.BOLD, 100));
             g.drawString(secondLetter, 420, 250);
 
-            String thirdLetter = prompt.substring(2,3);
+            String thirdLetter = q.getShuffled().substring(2,3);
             g.setFont(new Font("Cambria", Font.BOLD, 100));
             g.drawString(thirdLetter, 320, 370);
 
-            String fourthLetter = prompt.substring(3,4);
+            String fourthLetter = q.getShuffled().substring(3,4);
             g.setFont(new Font("Cambria", Font.BOLD, 100));
             g.drawString(fourthLetter, 420, 370);
 
@@ -86,23 +87,23 @@ public class Game implements Runnable {
 
             g.setColor(Color.BLACK);
             g.setFont(new Font("Cambria", Font.BOLD, 100));
-            String firstLetter = prompt.substring(0,1);
+            String firstLetter = q.getShuffled().substring(0,1);
             g.drawString(firstLetter, 320, 250);
 
 
             g.setFont(new Font("Cambria", Font.BOLD, 100));
-            String secondLetter = prompt.substring(1,2);
+            String secondLetter = q.getShuffled().substring(1,2);
             g.drawString(secondLetter, 420, 250);
 
-            String thirdLetter = prompt.substring(2,3);
+            String thirdLetter = q.getShuffled().substring(2,3);
             g.setFont(new Font("Cambria", Font.BOLD, 100));
             g.drawString(thirdLetter, 270, 390);
 
-            String fourthLetter = prompt.substring(3,4);
+            String fourthLetter = q.getShuffled().substring(3,4);
             g.setFont(new Font("Cambria", Font.BOLD, 100));
             g.drawString(fourthLetter, 370, 390);
 
-            String fifthLetter = prompt.substring(4,5);
+            String fifthLetter = q.getShuffled().substring(4,5);
             g.setFont(new Font("Cambria", Font.BOLD, 100));
             g.drawString(fifthLetter, 470, 390);
         }
@@ -112,8 +113,7 @@ public class Game implements Runnable {
         g.dispose();
 
 
-//        endImage = ImageLoader.loadImage("/res/pikachu.png");
-//        g.drawImage(endImage, 20,20 , null);
+
 
     }
 

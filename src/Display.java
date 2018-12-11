@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class Display extends JFrame{
@@ -52,10 +54,28 @@ public class Display extends JFrame{
         JPanel panelSouth = new JPanel();
         panel.add(panelSouth, BorderLayout.SOUTH);
         panelSouth.add(new JLabel("input: "));
-        panelSouth.add(new JTextField(8));
-        JButton buttonExit = new JButton("Submit");
-        panelSouth.add(buttonExit);
-        //if correct jlabel contratualtions! you earned 1 point
+        JTextField input = new JTextField(8);
+        panelSouth.add(input);
+        String ans = input.getText();
+
+
+        JButton buttonSubmit = new JButton("Submit");
+        panelSouth.add(buttonSubmit);
+
+        buttonSubmit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Question q = new Question();
+                if (ans.equals(q.getOriginal())){
+                    panelNorth.add(new JLabel("Congrats! You answered correctly"));
+
+                }else{
+                    panelNorth.add(new JLabel("Sorry, try again!"));
+                }
+            }
+        });
+
+
         JButton buttonNext = new JButton("Try next one");
         panelSouth.add(buttonNext);
 

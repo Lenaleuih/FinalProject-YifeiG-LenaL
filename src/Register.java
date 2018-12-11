@@ -1,5 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
 
 public class Register extends JFrame {
     private JButton buttonSubmit;
@@ -45,11 +51,20 @@ public class Register extends JFrame {
         c.gridx=1;
         c.gridy=0;
         c.anchor=GridBagConstraints.LINE_START;
-        panelCenter.add(new JTextField(8),c);
+        JTextField userName = new JTextField(8)
+        panelCenter.add(userName,c);
+        String uName = userName.getText();
+
+
         c.gridy++;
-        panelCenter.add(new JTextField(8),c);
+        JTextField passWord1 = new JTextField(8);
+        panelCenter.add(passWord1,c);
+        int pas1 = Integer.parseInt(passWord1.getText());
+
         c.gridy++;
-        panelCenter.add(new JTextField(8),c);
+        JTextField passWord2 = new JTextField(8);
+        panelCenter.add(passWord2,c);
+        int pas2 = Integer.parseInt(passWord2.getText());
         c.gridy++;
 
         c.gridx=2;
@@ -72,6 +87,33 @@ public class Register extends JFrame {
 
         buttonSubmit = new JButton("submit");
         panelSouth.add(buttonSubmit);
+        buttonSubmit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (pas1==pas2){
+                    addUser(uName, pas1);
+                }else{
+                    System.out.println("sorry, wrong input, check your info");
+                }
+            }
+        });
+
+
+
+    }
+
+    private static void addUser(String userName, int userPassword) {
+        File file = new File("User.txt");
+        try {
+
+            PrintWriter writer = new PrintWriter(new FileWriter(file, true));
+            writer.println(userName);
+            writer.println(userPassword);
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("Problem writing the file.Please make sure the path is corret");
+        }
+
 
     }
 
